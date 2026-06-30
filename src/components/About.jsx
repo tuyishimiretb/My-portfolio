@@ -47,7 +47,7 @@ export default function About() {
     <section id="about" style={{ padding: '120px 24px', position: 'relative', overflow: 'hidden' }}>
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header */}
-        <div style={{ marginBottom: '4rem' }}>
+        <div style={{ marginBottom: '3rem' }}>
           <span style={{
             display: 'inline-block',
             fontSize: '0.8rem',
@@ -68,13 +68,41 @@ export default function About() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1.2fr 1fr',
+          gridTemplateColumns: '1fr 1.5fr',
           gap: '60px',
           alignItems: 'start',
         }} className="about-grid">
-          {/* Left - Main content */}
+          {/* Left - Photo */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{ position: 'sticky', top: 120 }}
+          >
+            <div className="photo-frame">
+              <img
+                src="/tb/IMG-20260630-WA0025.jpg"
+                alt="Tuyishimire Bosco"
+                className="profile-photo"
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                  e.target.nextElementSibling.style.display = 'flex'
+                }}
+              />
+              <div className="photo-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.4 }}>
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 8 }}>Add your photo here</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right - Main content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -129,7 +157,7 @@ export default function About() {
             </div>
 
             {/* Stats row */}
-            <div style={{ display: 'flex', gap: 16 }}>
+            <div style={{ display: 'flex', gap: 16, marginBottom: '2.5rem' }}>
               {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
@@ -163,106 +191,138 @@ export default function About() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
 
-          {/* Right - Journey timeline */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h3 style={{
-              fontSize: '1.2rem',
-              fontWeight: 700,
-              marginBottom: '1.5rem',
-              color: 'var(--text-secondary)',
-              fontFamily: 'var(--font-mono)',
-            }}>
-              / my journey
-            </h3>
+            {/* Journey timeline */}
+            <div>
+              <h3 style={{
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                marginBottom: '1.5rem',
+                color: 'var(--text-secondary)',
+                fontFamily: 'var(--font-mono)',
+              }}>
+                / my journey
+              </h3>
 
-            <div style={{ position: 'relative', paddingLeft: 28 }}>
-              {/* Timeline line */}
-              <div style={{
-                position: 'absolute',
-                left: 8,
-                top: 0,
-                bottom: 0,
-                width: 1.5,
-                background: 'linear-gradient(to bottom, var(--primary), var(--secondary), transparent)',
-              }} />
+              <div style={{ position: 'relative', paddingLeft: 28 }}>
+                <div style={{
+                  position: 'absolute',
+                  left: 8,
+                  top: 0,
+                  bottom: 0,
+                  width: 1.5,
+                  background: 'linear-gradient(to bottom, var(--primary), var(--secondary), transparent)',
+                }} />
 
-              {journey.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.15 }}
-                  style={{
-                    position: 'relative',
-                    paddingBottom: i < journey.length - 1 ? 28 : 0,
-                  }}
-                >
-                  {/* Dot */}
-                  <div style={{
-                    position: 'absolute',
-                    left: -24,
-                    top: 4,
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    background: i === journey.length - 1 ? 'var(--gradient-1)' : 'var(--primary-dark)',
-                    border: '2px solid var(--bg)',
-                    boxShadow: `0 0 0 2px ${i === journey.length - 1 ? 'var(--primary)' : 'rgba(var(--primary-rgb),0.3)'}`,
-                  }} />
+                {journey.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.15 }}
+                    style={{
+                      position: 'relative',
+                      paddingBottom: i < journey.length - 1 ? 28 : 0,
+                    }}
+                  >
+                    <div style={{
+                      position: 'absolute',
+                      left: -24,
+                      top: 4,
+                      width: 12,
+                      height: 12,
+                      borderRadius: '50%',
+                      background: i === journey.length - 1 ? 'var(--gradient-1)' : 'var(--primary-dark)',
+                      border: '2px solid var(--bg)',
+                      boxShadow: `0 0 0 2px ${i === journey.length - 1 ? 'var(--primary)' : 'rgba(var(--primary-rgb),0.3)'}`,
+                    }} />
 
-                  <div style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--primary)',
-                    fontWeight: 600,
-                    fontFamily: 'var(--font-mono)',
-                    marginBottom: 2,
-                  }}>
-                    {item.year}
-                  </div>
-                  <div style={{
-                    fontSize: '0.88rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.5,
-                  }}>
-                    {item.event}
-                  </div>
-                </motion.div>
-              ))}
+                    <div style={{
+                      fontSize: '0.75rem',
+                      color: 'var(--primary)',
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-mono)',
+                      marginBottom: 2,
+                    }}>
+                      {item.year}
+                    </div>
+                    <div style={{
+                      fontSize: '0.88rem',
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.5,
+                    }}>
+                      {item.event}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.02, x: 4 }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  marginTop: '1.5rem',
+                  padding: '12px 28px',
+                  borderRadius: 50,
+                  background: 'var(--gradient-1)',
+                  color: 'white',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                }}
+              >
+                Let's Work Together →
+              </motion.a>
             </div>
-
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.02, x: 4 }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                marginTop: '1.5rem',
-                padding: '12px 28px',
-                borderRadius: 50,
-                background: 'var(--gradient-1)',
-                color: 'white',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-              }}
-            >
-              Let's Work Together →
-            </motion.a>
           </motion.div>
         </div>
       </div>
 
       <style>{`
+        .photo-frame {
+          width: 100%;
+          aspect-ratio: 1;
+          max-width: 400px;
+          border-radius: 20px;
+          position: relative;
+          overflow: hidden;
+          background: var(--card-bg);
+          border: 2px solid var(--card-border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto;
+        }
+        .photo-frame::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 22px;
+          background: var(--gradient-1);
+          z-index: -1;
+          opacity: 0.6;
+        }
+        .profile-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .photo-placeholder {
+          display: none;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          color: var(--text-muted);
+        }
         @media (max-width: 768px) {
           .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .photo-frame { max-width: 280px; }
         }
       `}</style>
     </section>
